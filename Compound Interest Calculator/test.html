@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator - Tests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-result {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .pass {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .fail {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .test-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .test-details {
+            font-size: 0.9em;
+            color: #666;
+        }
+        .summary {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Compound Interest Calculator - Test Suite</h1>
+    <div id="summary" class="summary"></div>
+    <div id="test-results"></div>
+
+    <script>
+        // Import calculation logic from main file
+        // We'll replicate the key calculation functions here for testing
+
+        function calculateCompoundInterest(principal, rate, timeInYears, compoundingFrequency) {
+            const periodsPerYear = compoundingFrequency === 'monthly' ? 12 : 1;
+            const totalPeriods = timeInYears * periodsPerYear;
+            const ratePerPeriod = rate / 100 / periodsPerYear;
+            return principal * Math.pow(1 + ratePerPeriod, totalPeriods);
+        }
+
+        function calculateWithMonthlyContributions(principal, rate, timeInYears, contribution, compoundingFrequency) {
+            const periodsPerYear = compoundingFrequency === 'monthly' ? 12 : 1;
+            const totalPeriods = timeInYears * periodsPerYear;
+            const contributionPeriods = Math.floor(timeInYears * 12);
+            let currentAmount = principal;
+
+            if (compoundingFrequency === 'monthly') {
+                const monthlyRate = rate / 100 / 12;
+                for (let month = 1; month <= contributionPeriods; month++) {
+                    currentAmount += contribution;
+                    currentAmount *= (1 + monthlyRate);
+                }
+                if (contributionPeriods < totalPeriods) {
+                    const remainingPeriods = totalPeriods - contributionPeriods;
+                    currentAmount *= Math.pow(1 + monthlyRate, remainingPeriods);
+                }
+            } else {
+                const annualRate = rate / 100;
+                for (let month = 1; month <= contributionPeriods; month++) {
+                    currentAmount += contribution;
+                    if (month % 12 === 0) {
+                        currentAmount *= (1 + annualRate);
+                    }
+                }
+                const totalMonths = Math.floor(timeInYears * 12);
+                const remainingMonths = totalMonths - contributionPeriods;
+                const remainingFullYears = Math.floor(remainingMonths / 12);
+                if (remainingFullYears > 0) {
+                    currentAmount *= Math.pow(1 + annualRate, remainingFullYears);
+                }
+            }
+
+            return currentAmount;
+        }
+
+        function calculateWithAnnualContributions(principal, rate, timeInYears, contribution, compoundingFrequency) {
+            const periodsPerYear = compoundingFrequency === 'monthly' ? 12 : 1;
+            const totalPeriods = timeInYears * periodsPerYear;
+            const ratePerPeriod = rate / 100 / periodsPerYear;
+            const contributionPeriods = Math.floor(timeInYears);
+            let currentAmount = principal;
+
+            for (let year = 1; year <= contributionPeriods; year++) {
+                currentAmount += contribution;
+                if (compoundingFrequency === 'monthly') {
+                    currentAmount *= Math.pow(1 + ratePerPeriod, 12);
+                } else {
+                    currentAmount *= (1 + ratePerPeriod);
+                }
+            }
+
+            const remainingYears = timeInYears - contributionPeriods;
+            if (remainingYears > 0) {
+                const remainingPeriods = remainingYears * periodsPerYear;
+                currentAmount *= Math.pow(1 + ratePerPeriod, remainingPeriods);
+            }
+
+            return currentAmount;
+        }
+
+        // Test Suite
+        const tests = [];
+        let passed = 0;
+        let failed = 0;
+
+        function addTest(name, expected, actual, tolerance = 0.01) {
+            const difference = Math.abs(expected - actual);
+            const passed = difference <= tolerance;
+            
+            tests.push({
+                name,
+                expected,
+                actual,
+                difference,
+                passed,
+                tolerance
+            });
+
+            if (passed) {
+                window.passed++;
+            } else {
+                window.failed++;
+            }
+        }
+
+        // Test 1: Simple compound interest - monthly compounding
+        // Principal: $10,000, Rate: 5% annual, Time: 10 years, Monthly compounding
+        // Formula: A = P(1 + r/n)^(nt) = 10000(1 + 0.05/12)^(12*10) = 10000(1.004167)^120
+        const test1 = calculateCompoundInterest(10000, 5, 10, 'monthly');
+        addTest(
+            'Test 1: $10,000 at 5% annual, 10 years, monthly compounding',
+            16470.09,
+            test1,
+            1
+        );
+
+        // Test 2: Simple compound interest - annual compounding
+        // Principal: $10,000, Rate: 5% annual, Time: 10 years, Annual compounding
+        // Formula: A = P(1 + r)^t = 10000(1.05)^10
+        const test2 = calculateCompoundInterest(10000, 5, 10, 'annually');
+        addTest(
+            'Test 2: $10,000 at 5% annual, 10 years, annual compounding',
+            16288.95,
+            test2,
+            1
+        );
+
+        // Test 3: Monthly contributions with monthly compounding
+        // Principal: $10,000, Rate: 5%, Time: 1 year, Monthly contribution: $100, Monthly compounding
+        // Calculation: Principal grows with monthly compounding + annuity of $100/month
+        // FV = 10000*(1.004167)^12 + 100*((1.004167^12-1)/0.004167) ≈ $11,744.62
+        const test3 = calculateWithMonthlyContributions(10000, 5, 1, 100, 'monthly');
+        addTest(
+            'Test 3: $10,000 + $100/month for 1 year at 5% (monthly compounding)',
+            11744.62,
+            test3,
+            1
+        );
+
+        // Test 4: Monthly contributions with annual compounding
+        // Principal: $10,000, Rate: 5%, Time: 1 year, Monthly contribution: $100, Annual compounding
+        // Contributions accumulate monthly, interest applied at year end: (10000 + 1200) * 1.05 = $11,760
+        const test4 = calculateWithMonthlyContributions(10000, 5, 1, 100, 'annually');
+        addTest(
+            'Test 4: $10,000 + $100/month for 1 year at 5% (annual compounding)',
+            11760,
+            test4,
+            10
+        );
+
+        // Test 5: Annual contributions with monthly compounding
+        // Principal: $10,000, Rate: 5%, Time: 2 years, Annual contribution: $1,200, Monthly compounding
+        // Year 1: (10000 + 1200) * (1.004167)^12 = 11773.01
+        // Year 2: (11773.01 + 1200) * (1.004167)^12 = 13630.68
+        const test5 = calculateWithAnnualContributions(10000, 5, 2, 1200, 'monthly');
+        addTest(
+            'Test 5: $10,000 + $1,200/year for 2 years at 5% (monthly compounding)',
+            13630.68,
+            test5,
+            1
+        );
+
+        // Test 6: Annual contributions with annual compounding
+        // Principal: $10,000, Rate: 5%, Time: 2 years, Annual contribution: $1,200, Annual compounding
+        // Year 1: (10000 + 1200) * 1.05 = 11760
+        // Year 2: (11760 + 1200) * 1.05 = 13608
+        const test6 = calculateWithAnnualContributions(10000, 5, 2, 1200, 'annually');
+        addTest(
+            'Test 6: $10,000 + $1,200/year for 2 years at 5% (annual compounding)',
+            13608,
+            test6,
+            1
+        );
+
+        // Test 7: Zero interest rate
+        const test7 = calculateCompoundInterest(10000, 0, 10, 'monthly');
+        addTest(
+            'Test 7: $10,000 at 0% for 10 years',
+            10000,
+            test7,
+            0.01
+        );
+
+        // Test 8: Short time period - 1 month
+        const test8 = calculateCompoundInterest(10000, 12, 1/12, 'monthly');
+        // 1 month at 12% annual = 1% per month
+        addTest(
+            'Test 8: $10,000 at 12% annual for 1 month (monthly compounding)',
+            10100,
+            test8,
+            1
+        );
+
+        // Test 9: High interest rate
+        const test9 = calculateCompoundInterest(1000, 20, 5, 'monthly');
+        // High rate test
+        addTest(
+            'Test 9: $1,000 at 20% annual for 5 years (monthly compounding)',
+            2700,
+            test9,
+            100
+        );
+
+        // Test 10: No contributions - should match simple compound interest
+        const test10 = calculateWithMonthlyContributions(10000, 5, 10, 0, 'monthly');
+        const test10Expected = calculateCompoundInterest(10000, 5, 10, 'monthly');
+        addTest(
+            'Test 10: $10,000 with $0 monthly contributions should equal simple compound interest',
+            test10Expected,
+            test10,
+            0.01
+        );
+
+        // Display results
+        function displayResults() {
+            const summaryDiv = document.getElementById('summary');
+            const resultsDiv = document.getElementById('test-results');
+
+            summaryDiv.innerHTML = `
+                <h2>Test Summary</h2>
+                <p><strong>Total Tests:</strong> ${tests.length}</p>
+                <p style="color: green;"><strong>Passed:</strong> ${passed}</p>
+                <p style="color: red;"><strong>Failed:</strong> ${failed}</p>
+                <p><strong>Success Rate:</strong> ${((passed / tests.length) * 100).toFixed(1)}%</p>
+            `;
+
+            tests.forEach((test, index) => {
+                const resultDiv = document.createElement('div');
+                resultDiv.className = `test-result ${test.passed ? 'pass' : 'fail'}`;
+                resultDiv.innerHTML = `
+                    <div class="test-name">${test.passed ? '✓' : '✗'} ${test.name}</div>
+                    <div class="test-details">
+                        Expected: $${test.expected.toFixed(2)} | 
+                        Actual: $${test.actual.toFixed(2)} | 
+                        Difference: $${test.difference.toFixed(2)} | 
+                        Tolerance: $${test.tolerance.toFixed(2)}
+                    </div>
+                `;
+                resultsDiv.appendChild(resultDiv);
+            });
+        }
+
+        // Run tests when page loads
+        window.addEventListener('load', function() {
+            window.passed = 0;
+            window.failed = 0;
+            displayResults();
+        });
+    </script>
+</body>
+</html>
