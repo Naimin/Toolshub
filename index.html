@@ -4,10 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="google-adsense-account" content="ca-pub-7982803741580983">
-    <title>Compound Interest Calculator</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Primary Meta Tags -->
+    <title>Tools-Hub.net - Free Web Tools & Calculators</title>
+    <meta name="title" content="Tools-Hub.net - Free Web Tools & Calculators">
+    <meta name="description" content="A collection of free, useful web-based tools and calculators. Calculate compound interest, and more financial tools to help with your calculations.">
+    <meta name="keywords" content="free tools, calculators, web tools, compound interest calculator, financial tools, online calculators">
+    <meta name="author" content="Tools-Hub.net">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://tools-hub.net/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tools-hub.net/">
+    <meta property="og:title" content="Tools-Hub.net - Free Web Tools & Calculators">
+    <meta property="og:description" content="A collection of free, useful web-based tools and calculators">
+    <meta property="og:image" content="https://tools-hub.net/og-image.png">
+    <meta property="og:site_name" content="Tools-Hub.net">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://tools-hub.net/">
+    <meta property="twitter:title" content="Tools-Hub.net - Free Web Tools & Calculators">
+    <meta property="twitter:description" content="A collection of free, useful web-based tools and calculators">
+    <meta property="twitter:image" content="https://tools-hub.net/og-image.png">
+    
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7982803741580983"
      crossorigin="anonymous"></script>
+    
     <style>
         * {
             margin: 0;
@@ -21,1383 +47,134 @@
             min-height: 100vh;
             padding: 20px;
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: center;
-            align-items: flex-start;
         }
 
         .container {
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            max-width: 1200px;
+            max-width: 900px;
             width: 100%;
-            padding: 40px;
+            padding: 60px 40px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
             color: #333;
-            margin-bottom: 10px;
-            font-size: 2.5em;
+            font-size: 3em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .subtitle {
-            text-align: center;
             color: #666;
-            margin-bottom: 40px;
-            font-size: 1.1em;
+            font-size: 1.3em;
+            margin-bottom: 50px;
+            line-height: 1.6;
         }
 
-        .calculator-section {
+        .tools-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .input-group {
-            margin-bottom: 25px;
+        .tool-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid transparent;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: #555;
-            font-weight: 600;
-            font-size: 0.95em;
-            cursor: pointer;
-            touch-action: manipulation;
-        }
-
-        input[type="number"],
-        select {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        input[type="number"]:focus,
-        select:focus {
-            outline: none;
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
             border-color: #667eea;
         }
 
-        /* Remove number input spinners on mobile */
-        input[type="number"]::-webkit-inner-spin-button,
-        input[type="number"]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        .tool-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
         }
 
-        input[type="number"] {
-            -moz-appearance: textfield;
-        }
-
-        .time-period-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .time-period-field {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .time-period-field input {
-            flex: 1;
-        }
-
-        .time-period-field label {
-            margin: 0;
-            font-weight: normal;
-            white-space: nowrap;
-            min-width: 50px;
-        }
-
-        .radio-group {
-            display: flex;
-            gap: 20px;
-            margin-top: 10px;
-            flex-wrap: wrap;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        input[type="radio"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            min-width: 18px;
-            touch-action: manipulation;
-        }
-
-        .results-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 40px;
-        }
-
-        .results-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .result-item {
-            text-align: center;
-        }
-
-        .result-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-            margin-bottom: 5px;
-        }
-
-        .result-value {
-            font-size: 1.8em;
-            font-weight: bold;
-        }
-
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin-top: 20px;
-        }
-
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
+        .tool-title {
+            color: #333;
+            font-size: 1.5em;
             font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-            margin-top: 10px;
-            touch-action: manipulation;
-            min-height: 44px; /* Minimum touch target size */
+            margin-bottom: 10px;
         }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        .tool-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
         }
 
-        button:active {
-            transform: translateY(0);
-        }
-
-        @media (hover: none) {
-            button:hover {
-                transform: none;
-            }
-        }
-
-        /* Tablet and below */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                align-items: flex-start;
-            }
-
             .container {
-                padding: 20px;
-                border-radius: 15px;
+                padding: 40px 20px;
             }
 
             h1 {
                 font-size: 2em;
-                margin-bottom: 8px;
             }
 
             .subtitle {
-                font-size: 1em;
+                font-size: 1.1em;
                 margin-bottom: 30px;
             }
 
-            .calculator-section {
+            .tools-grid {
                 grid-template-columns: 1fr;
-                gap: 30px;
-                margin-bottom: 30px;
+                gap: 20px;
             }
 
-            .input-group {
-                margin-bottom: 20px;
-            }
-
-            .radio-group {
-                gap: 15px;
-            }
-
-            .results-section {
-                padding: 20px;
-                margin-bottom: 30px;
-            }
-
-            .results-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 15px;
-            }
-
-            .result-value {
-                font-size: 1.5em;
-            }
-
-            .chart-container {
-                height: 300px;
-            }
-
-            button {
-                padding: 12px;
-                font-size: 1em;
+            .tool-card {
+                padding: 25px;
             }
         }
 
-        /* Mobile phones */
         @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                padding: 15px;
-                border-radius: 10px;
-            }
-
             h1 {
                 font-size: 1.6em;
-                margin-bottom: 5px;
             }
 
             .subtitle {
-                font-size: 0.9em;
-                margin-bottom: 20px;
-            }
-
-            .calculator-section {
-                gap: 20px;
-                margin-bottom: 20px;
-            }
-
-            .input-group {
-                margin-bottom: 15px;
-            }
-
-            label {
-                font-size: 0.9em;
-                margin-bottom: 6px;
-            }
-
-            input[type="number"],
-            select {
-                padding: 10px 12px;
-                font-size: 0.95em;
-            }
-
-            .time-period-row {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .time-period-field {
-                width: 100%;
-            }
-
-            .time-period-field label {
-                min-width: 60px;
-            }
-
-            .radio-group {
-                gap: 12px;
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .radio-option {
-                gap: 6px;
-            }
-
-            input[type="radio"] {
-                width: 20px;
-                height: 20px;
-                min-width: 20px;
-            }
-
-            .results-section {
-                padding: 15px;
-                margin-bottom: 20px;
-                border-radius: 10px;
-            }
-
-            .results-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-            }
-
-            .result-label {
-                font-size: 0.85em;
-            }
-
-            .result-value {
-                font-size: 1.3em;
-            }
-
-            .chart-container {
-                height: 250px;
-                margin-top: 15px;
-            }
-
-            button {
-                padding: 12px;
-                font-size: 0.95em;
-                margin-top: 5px;
-            }
-        }
-
-        /* Very small screens */
-        @media (max-width: 360px) {
-            h1 {
-                font-size: 1.4em;
-            }
-
-            .subtitle {
-                font-size: 0.85em;
-            }
-
-            .container {
-                padding: 12px;
-            }
-
-            .chart-container {
-                height: 220px;
-            }
-
-            .result-value {
-                font-size: 1.2em;
+                font-size: 1em;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💰 Compound Interest Calculator</h1>
-        <p class="subtitle">Calculate your investment growth over time</p>
+        <h1>🛠️ Tools-Hub.net</h1>
+        <p class="subtitle">
+            Free, easy-to-use web tools and calculators to help you with your everyday calculations
+        </p>
 
-        <div class="calculator-section">
-            <div class="inputs">
-                <div class="input-group">
-                    <label for="principal">Principal Amount ($)</label>
-                    <input type="number" id="principal" placeholder="10000" min="0" step="0.01" value="10000">
+        <div class="tools-grid">
+            <a href="/compound-interest-calculator/" class="tool-card">
+                <div class="tool-icon">💰</div>
+                <div class="tool-title">Compound Interest Calculator</div>
+                <div class="tool-description">
+                    Calculate your investment growth over time with our interactive compound interest calculator. Supports monthly/annual compounding, contributions, and detailed charts.
                 </div>
-
-                <div class="input-group">
-                    <label for="rate" id="rateLabel">Annual Interest Rate (%)</label>
-                    <input type="number" id="rate" placeholder="5" min="0" step="0.01" value="5">
-                </div>
-
-                <div class="input-group">
-                    <label for="timeYears">Time Period</label>
-                    <div class="time-period-row">
-                        <div class="time-period-field">
-                            <input type="number" id="timeYears" placeholder="10" min="0" step="1" value="10">
-                            <label for="timeYears">Years</label>
-                        </div>
-                        <div class="time-period-field">
-                            <input type="number" id="timeMonths" placeholder="0" min="0" max="11" step="1" value="0">
-                            <label for="timeMonths">Months</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label for="contribution">Contribution Amount ($) <span style="font-weight: normal; color: #999;">(Optional)</span></label>
-                    <input type="number" id="contribution" placeholder="0" min="0" step="0.01" value="0">
-                </div>
-
-                <div class="input-group">
-                    <label>Contribution Frequency</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="contributionMonthly" name="contributionFrequency" value="monthly" checked>
-                            <label for="contributionMonthly" style="margin: 0; font-weight: normal;">Monthly</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="contributionAnnually" name="contributionFrequency" value="annually">
-                            <label for="contributionAnnually" style="margin: 0; font-weight: normal;">Annually</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="input-group">
-                    <label>Compounding Frequency</label>
-                    <div class="radio-group">
-                        <div class="radio-option">
-                            <input type="radio" id="monthly" name="frequency" value="monthly" checked>
-                            <label for="monthly" style="margin: 0; font-weight: normal;">Monthly</label>
-                        </div>
-                        <div class="radio-option">
-                            <input type="radio" id="annually" name="frequency" value="annually">
-                            <label for="annually" style="margin: 0; font-weight: normal;">Annually</label>
-                        </div>
-                    </div>
-                </div>
-
-                <button onclick="calculate()">Calculate</button>
-            </div>
-
-            <div class="results-section">
-                <div class="results-grid">
-                    <div class="result-item">
-                        <div class="result-label">Principal</div>
-                        <div class="result-value" id="principalResult">$0.00</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Additional Contributions</div>
-                        <div class="result-value" id="additionalContributions">$0.00</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Total Contributions</div>
-                        <div class="result-value" id="totalContributions">$0.00</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Final Amount</div>
-                        <div class="result-value" id="finalAmount">$0.00</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Interest Earned</div>
-                        <div class="result-value" id="interestEarned">$0.00</div>
-                    </div>
-                    <div class="result-item">
-                        <div class="result-label">Total Growth</div>
-                        <div class="result-value" id="totalGrowth">0%</div>
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
 
-        <div class="chart-container">
-            <canvas id="growthChart"></canvas>
+        <div style="margin-top: 50px; padding-top: 30px; border-top: 2px solid #e0e0e0; color: #999; font-size: 0.9em;">
+            <p>More tools coming soon! 🚀</p>
         </div>
     </div>
-
-    <script>
-        let chart = null;
-
-        // Caching functions to remember user inputs
-        function saveToCache() {
-            try {
-                const cacheData = {
-                    principal: document.getElementById('principal').value,
-                    rate: document.getElementById('rate').value,
-                    timeYears: document.getElementById('timeYears').value,
-                    timeMonths: document.getElementById('timeMonths').value,
-                    contribution: document.getElementById('contribution').value,
-                    contributionFrequency: document.querySelector('input[name="contributionFrequency"]:checked')?.value || 'monthly',
-                    frequency: document.querySelector('input[name="frequency"]:checked')?.value || 'monthly'
-                };
-                localStorage.setItem('compoundInterestCalculator', JSON.stringify(cacheData));
-            } catch (e) {
-                // localStorage might not be available, silently fail
-                console.log('Could not save to cache:', e);
-            }
-        }
-
-        function loadFromCache() {
-            try {
-                const cached = localStorage.getItem('compoundInterestCalculator');
-                if (cached) {
-                    const cacheData = JSON.parse(cached);
-                    
-                    // Load number inputs
-                    if (cacheData.principal !== undefined) {
-                        document.getElementById('principal').value = cacheData.principal;
-                    }
-                    if (cacheData.rate !== undefined) {
-                        document.getElementById('rate').value = cacheData.rate;
-                    }
-                    if (cacheData.timeYears !== undefined) {
-                        document.getElementById('timeYears').value = cacheData.timeYears;
-                    }
-                    if (cacheData.timeMonths !== undefined) {
-                        document.getElementById('timeMonths').value = cacheData.timeMonths;
-                    }
-                    if (cacheData.contribution !== undefined) {
-                        document.getElementById('contribution').value = cacheData.contribution;
-                    }
-                    
-                    // Load radio buttons
-                    if (cacheData.contributionFrequency) {
-                        const contributionRadio = document.querySelector(`input[name="contributionFrequency"][value="${cacheData.contributionFrequency}"]`);
-                        if (contributionRadio) {
-                            contributionRadio.checked = true;
-                        }
-                    }
-                    if (cacheData.frequency) {
-                        const frequencyRadio = document.querySelector(`input[name="frequency"][value="${cacheData.frequency}"]`);
-                        if (frequencyRadio) {
-                            frequencyRadio.checked = true;
-                        }
-                    }
-                    
-                    return true;
-                }
-            } catch (e) {
-                // localStorage might not be available or data corrupted
-                console.log('Could not load from cache:', e);
-            }
-            return false;
-        }
-
-        function formatCurrency(value) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'USD',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }).format(value);
-        }
-
-        function updateRateLabel() {
-            const frequency = document.querySelector('input[name="frequency"]:checked').value;
-            const rateLabel = document.getElementById('rateLabel');
-            if (frequency === 'monthly') {
-                rateLabel.textContent = 'Annual Interest Rate (%) - Compounded Monthly';
-            } else {
-                rateLabel.textContent = 'Annual Interest Rate (%) - Compounded Annually';
-            }
-        }
-
-        function calculate() {
-            const principal = parseFloat(document.getElementById('principal').value) || 0;
-            const rate = parseFloat(document.getElementById('rate').value) || 0;
-            const timeYears = parseFloat(document.getElementById('timeYears').value) || 0;
-            const timeMonths = parseFloat(document.getElementById('timeMonths').value) || 0;
-            const contribution = parseFloat(document.getElementById('contribution').value) || 0;
-            const frequency = document.querySelector('input[name="frequency"]:checked').value;
-            const contributionFrequency = document.querySelector('input[name="contributionFrequency"]:checked').value;
-
-            // Validate months input (0-11)
-            if (timeMonths < 0 || timeMonths >= 12) {
-                alert('Months must be between 0 and 11.');
-                return;
-            }
-
-            if (principal <= 0 || rate < 0 || (timeYears <= 0 && timeMonths <= 0)) {
-                alert('Please enter valid values for all fields.');
-                return;
-            }
-
-            // Convert time to years
-            let timeInYears = timeYears + (timeMonths / 12);
-            
-            // Calculate compounding periods per year
-            const periodsPerYear = frequency === 'monthly' ? 12 : 1;
-            const totalPeriods = timeInYears * periodsPerYear;
-            const ratePerPeriod = rate / 100 / periodsPerYear;
-
-            // Calculate final amount for principal only using compound interest formula: A = P(1 + r/n)^(nt)
-            const principalOnlyAmount = principal * Math.pow(1 + ratePerPeriod, totalPeriods);
-            
-            // Calculate final amount with contributions
-            let finalAmount = principalOnlyAmount;
-            let totalContributionsMade = 0;
-            
-            if (contribution > 0) {
-                // Calculate period by period for accuracy
-                let currentAmount = principal;
-                let contributionPeriods;
-                
-                if (contributionFrequency === 'monthly') {
-                    // Monthly contributions
-                    contributionPeriods = Math.floor(timeInYears * 12);
-                    totalContributionsMade = contribution * contributionPeriods;
-                    
-                    if (frequency === 'monthly') {
-                        // Monthly compounding: compound each month
-                        const monthlyRate = rate / 100 / 12;
-                        for (let month = 1; month <= contributionPeriods; month++) {
-                            // Add contribution at the end of the period (ordinary annuity)
-                            currentAmount += contribution;
-                            // Apply monthly interest
-                            currentAmount *= (1 + monthlyRate);
-                        }
-                        
-                        // Apply remaining interest if needed
-                        if (contributionPeriods < totalPeriods) {
-                            const remainingPeriods = totalPeriods - contributionPeriods;
-                            currentAmount *= Math.pow(1 + monthlyRate, remainingPeriods);
-                        }
-                    } else {
-                        // Annual compounding: add contributions monthly, compound annually
-                        const annualRate = rate / 100;
-                        const fullYears = Math.floor(contributionPeriods / 12);
-                        const remainingMonths = contributionPeriods % 12;
-                        
-                        // Process full years
-                        for (let year = 1; year <= fullYears; year++) {
-                            // Add 12 monthly contributions
-                            for (let month = 1; month <= 12; month++) {
-                                currentAmount += contribution;
-                            }
-                            // Apply annual interest at end of year
-                            currentAmount *= (1 + annualRate);
-                        }
-                        
-                        // Add remaining monthly contributions (partial year)
-                        for (let month = 1; month <= remainingMonths; month++) {
-                            currentAmount += contribution;
-                        }
-                        
-                        // Apply interest for any remaining full years after contributions end
-                        const totalMonths = Math.floor(timeInYears * 12);
-                        const monthsAfterContributions = totalMonths - contributionPeriods;
-                        const remainingFullYears = Math.floor(monthsAfterContributions / 12);
-                        if (remainingFullYears > 0) {
-                            currentAmount *= Math.pow(1 + annualRate, remainingFullYears);
-                        }
-                        // Note: Partial years don't earn interest with annual compounding
-                    }
-                } else {
-                    // Annual contributions
-                    contributionPeriods = Math.floor(timeInYears);
-                    totalContributionsMade = contribution * contributionPeriods;
-                    
-                    // Calculate year by year
-                    for (let year = 1; year <= contributionPeriods; year++) {
-                        // Add contribution at the end of the year
-                        currentAmount += contribution;
-                        // Apply interest for the year based on compounding frequency
-                        if (frequency === 'monthly') {
-                            // Compound monthly for 12 periods
-                            currentAmount *= Math.pow(1 + ratePerPeriod, 12);
-                        } else {
-                            // Compound annually
-                            currentAmount *= (1 + ratePerPeriod);
-                        }
-                    }
-                    
-                    // Apply remaining interest if needed
-                    const remainingYears = timeInYears - contributionPeriods;
-                    if (remainingYears > 0) {
-                        const remainingPeriods = remainingYears * periodsPerYear;
-                        currentAmount *= Math.pow(1 + ratePerPeriod, remainingPeriods);
-                    }
-                }
-                
-                finalAmount = currentAmount;
-            }
-            
-            const interestEarned = finalAmount - principal - totalContributionsMade;
-            const totalInvested = principal + totalContributionsMade;
-            const totalGrowth = totalInvested > 0 ? ((finalAmount - totalInvested) / totalInvested) * 100 : 0;
-
-            // Update results
-            document.getElementById('principalResult').textContent = formatCurrency(principal);
-            document.getElementById('additionalContributions').textContent = formatCurrency(totalContributionsMade);
-            document.getElementById('totalContributions').textContent = formatCurrency(principal + totalContributionsMade);
-            document.getElementById('finalAmount').textContent = formatCurrency(finalAmount);
-            document.getElementById('interestEarned').textContent = formatCurrency(interestEarned);
-            document.getElementById('totalGrowth').textContent = totalGrowth.toFixed(2) + '%';
-
-            // Generate data points for the chart
-            const principalOnlyData = [];
-            const withContributionsData = [];
-            const contributionsData = [];
-            const interestGainData = [];
-            const totalAmountData = [];
-            const chartLabels = [];
-            
-            // Determine contribution periods and rate
-            let contributionPeriods;
-            let contributionRate;
-            let maxChartPeriods;
-            let useMonthsForChart = true; // Whether to iterate chart in months or years
-            
-            if (contribution > 0) {
-                if (contributionFrequency === 'monthly') {
-                    contributionPeriods = Math.floor(timeInYears * 12);
-                    contributionRate = rate / 100 / 12;
-                    maxChartPeriods = contributionPeriods;
-                    useMonthsForChart = true;
-                } else {
-                    contributionPeriods = Math.floor(timeInYears);
-                    contributionRate = rate / 100;
-                    // For annual contributions, use years if compounding is annual, months if monthly
-                    if (frequency === 'annually') {
-                        maxChartPeriods = contributionPeriods;
-                        useMonthsForChart = false;
-                    } else {
-                        maxChartPeriods = totalPeriods;
-                        useMonthsForChart = true;
-                    }
-                }
-            } else {
-                // No contributions - use years if compounding is annual, months if monthly
-                if (frequency === 'annually') {
-                    maxChartPeriods = totalPeriods; // This is already in years
-                    useMonthsForChart = false;
-                } else {
-                    maxChartPeriods = totalPeriods; // This is in months
-                    useMonthsForChart = true;
-                }
-            }
-            
-            // Determine step size for chart
-            let chartStep;
-            if (useMonthsForChart) {
-                // Charting in months
-                if (contribution > 0) {
-                    if (contributionFrequency === 'monthly') {
-                        // Monthly contributions - show monthly data
-                        chartStep = timeInYears <= 1 ? 1 : timeInYears <= 5 ? 3 : 6;
-                    } else {
-                        // Annual contributions with monthly compounding
-                        chartStep = timeInYears <= 1 ? 1 : timeInYears <= 5 ? 3 : 6;
-                    }
-                } else {
-                    // No contributions, monthly compounding
-                    chartStep = timeInYears <= 1 ? 1 : timeInYears <= 5 ? 3 : 6;
-                }
-            } else {
-                // Charting in years (annual compounding)
-                chartStep = 1; // Show every year
-            }
-            
-            let lastLoopPeriod = 0; // Track the last period value in the loop
-            for (let i = 0; i <= maxChartPeriods; i += chartStep) {
-                // Convert i to the appropriate unit (months or years)
-                let currentPeriods, currentMonths, currentYears;
-                if (useMonthsForChart) {
-                    currentMonths = i;
-                    currentYears = i / 12;
-                    currentPeriods = frequency === 'monthly' ? i : Math.floor(i / 12);
-                    lastLoopPeriod = i; // Track last month value
-                } else {
-                    // i is in years
-                    currentYears = i;
-                    currentMonths = i * 12;
-                    currentPeriods = i; // For annual compounding, periods = years
-                    lastLoopPeriod = i; // Track last year value
-                }
-                
-                // Principal only amount at this point
-                let principalAmount;
-                if (frequency === 'monthly') {
-                    principalAmount = principal * Math.pow(1 + ratePerPeriod, currentMonths);
-                } else {
-                    // Annual compounding
-                    principalAmount = principal * Math.pow(1 + ratePerPeriod, currentYears);
-                }
-                principalOnlyData.push(principalAmount);
-                
-                // Calculate contributions made up to this point
-                let contributionsMade = 0;
-                if (contribution > 0) {
-                    if (contributionFrequency === 'monthly') {
-                        const monthsSoFar = useMonthsForChart ? Math.min(currentMonths, contributionPeriods) : Math.min(currentMonths, contributionPeriods);
-                        contributionsMade = contribution * monthsSoFar;
-                    } else {
-                        const completedYears = Math.min(currentYears, contributionPeriods);
-                        contributionsMade = contribution * completedYears;
-                    }
-                }
-                contributionsData.push(contributionsMade);
-                
-                // Amount with contributions at this point
-                let amountWithContributions = principal;
-                if (contribution > 0) {
-                    if (contributionFrequency === 'monthly') {
-                        // Monthly contributions
-                        const monthsSoFar = Math.min(currentMonths, contributionPeriods);
-                        
-                        if (frequency === 'monthly') {
-                            // Monthly compounding
-                            const monthlyRate = rate / 100 / 12;
-                            for (let month = 1; month <= monthsSoFar; month++) {
-                                amountWithContributions += contribution;
-                                amountWithContributions *= (1 + monthlyRate);
-                            }
-                            // Apply remaining interest if needed
-                            if (currentMonths > contributionPeriods) {
-                                const remainingPeriods = currentMonths - contributionPeriods;
-                                amountWithContributions *= Math.pow(1 + monthlyRate, remainingPeriods);
-                            }
-                        } else {
-                            // Annual compounding: add contributions monthly, compound annually
-                            const annualRate = rate / 100;
-                            const fullYears = Math.floor(monthsSoFar / 12);
-                            const remainingMonths = monthsSoFar % 12;
-                            
-                            // Process full years
-                            for (let year = 1; year <= fullYears; year++) {
-                                // Add 12 monthly contributions
-                                for (let month = 1; month <= 12; month++) {
-                                    amountWithContributions += contribution;
-                                }
-                                // Apply annual interest at end of year
-                                amountWithContributions *= (1 + annualRate);
-                            }
-                            
-                            // Add remaining monthly contributions (partial year)
-                            for (let month = 1; month <= remainingMonths; month++) {
-                                amountWithContributions += contribution;
-                            }
-                            
-                            // Apply interest for any remaining full years after contributions
-                            const monthsAfterContributions = currentMonths - monthsSoFar;
-                            const remainingFullYears = Math.floor(monthsAfterContributions / 12);
-                            if (remainingFullYears > 0) {
-                                amountWithContributions *= Math.pow(1 + annualRate, remainingFullYears);
-                            }
-                        }
-                    } else {
-                        // Annual contributions
-                        const completedYears = Math.min(currentYears, contributionPeriods);
-                        
-                        // Process completed years
-                        for (let year = 1; year <= completedYears; year++) {
-                            amountWithContributions += contribution;
-                            // Apply interest for the year based on compounding frequency
-                            if (frequency === 'monthly') {
-                                amountWithContributions *= Math.pow(1 + ratePerPeriod, 12);
-                            } else {
-                                amountWithContributions *= (1 + ratePerPeriod);
-                            }
-                        }
-                        
-                        // Apply remaining interest for partial year if needed (only for monthly compounding)
-                        if (frequency === 'monthly' && useMonthsForChart) {
-                            const remainingPeriodsInYear = currentMonths - (completedYears * 12);
-                            if (remainingPeriodsInYear > 0 && completedYears < contributionPeriods) {
-                                // Haven't reached the next contribution yet, just apply interest
-                                amountWithContributions *= Math.pow(1 + ratePerPeriod, remainingPeriodsInYear);
-                            } else if (remainingPeriodsInYear > 0 && completedYears >= contributionPeriods) {
-                                // Past all contributions, apply remaining interest
-                                amountWithContributions *= Math.pow(1 + ratePerPeriod, remainingPeriodsInYear);
-                            }
-                        }
-                    }
-                } else {
-                    amountWithContributions = principalAmount;
-                }
-                
-                // Ensure amountWithContributions is at least principal + contributions (minimum value with 0% interest)
-                amountWithContributions = Math.max(amountWithContributions, principal + contributionsMade);
-                
-                withContributionsData.push(amountWithContributions);
-                
-                // Calculate interest gain at this point
-                // Interest gain should never be negative - it represents interest earned
-                const interestGain = amountWithContributions - principal - contributionsMade;
-                interestGainData.push(interestGain);
-                
-                // Total amount is the same as amountWithContributions
-                totalAmountData.push(amountWithContributions);
-                
-                // Create label
-                if (useMonthsForChart) {
-                    const years = Math.floor(i / 12);
-                    const months = i % 12;
-                    if (years > 0) {
-                        chartLabels.push(`${years}y ${months}m`);
-                    } else {
-                        chartLabels.push(`${i}m`);
-                    }
-                } else {
-                    // i is in years
-                    chartLabels.push(`${i}y`);
-                }
-            }
-
-            // Calculate final time period in months (exact value, not rounded)
-            const finalTotalMonths = timeInYears * 12;
-            const finalTotalMonthsRounded = Math.round(finalTotalMonths);
-            const lastLoopTotalMonths = useMonthsForChart ? lastLoopPeriod : lastLoopPeriod * 12;
-            
-            // Calculate final label from actual time period entered (years + months)
-            let finalYears = Math.floor(timeInYears);
-            let finalMonths = Math.round((timeInYears - finalYears) * 12);
-            
-            // Handle case where rounding results in 12 months
-            if (finalMonths >= 12) {
-                finalYears += 1;
-                finalMonths = 0;
-            }
-            
-            // Determine final label - always show months if they exist
-            let finalLabel;
-            if (finalMonths > 0) {
-                finalLabel = `${finalYears}y ${finalMonths}m`;
-            } else {
-                finalLabel = `${finalYears}y`;
-            }
-            
-            // Always ensure the final point is present with correct label
-            const lastIndex = principalOnlyData.length - 1;
-            const lastLabel = chartLabels.length > 0 ? chartLabels[lastIndex] : '';
-            
-            // Check if last point is at the final time period (within 1 month tolerance for rounding/step size)
-            const periodMatches = Math.abs(lastLoopTotalMonths - finalTotalMonthsRounded) <= 1;
-            
-            // Always ensure final point is at exact time period - add/update as needed
-            if (periodMatches) {
-                // Last point is at or near final period - update values and label
-                principalOnlyData[lastIndex] = principalOnlyAmount;
-                withContributionsData[lastIndex] = finalAmount;
-                contributionsData[lastIndex] = totalContributionsMade;
-                interestGainData[lastIndex] = interestEarned;
-                totalAmountData[lastIndex] = finalAmount;
-                // Always update label to ensure it's correct
-                chartLabels[lastIndex] = finalLabel;
-            } else {
-                // Period doesn't match - add new final point at exact time period
-                principalOnlyData.push(principalOnlyAmount);
-                withContributionsData.push(finalAmount);
-                contributionsData.push(totalContributionsMade);
-                interestGainData.push(interestEarned);
-                totalAmountData.push(finalAmount);
-                chartLabels.push(finalLabel);
-            }
-            
-            // CRITICAL: Final safeguard - ALWAYS ensure the last label matches the exact time period entered
-            // This is the most important check to prevent missing labels
-            const finalCheckIndex = chartLabels.length - 1;
-            if (finalCheckIndex >= 0) {
-                chartLabels[finalCheckIndex] = finalLabel;
-            } else if (chartLabels.length === 0) {
-                // Edge case: if no labels exist, add the final label
-                chartLabels.push(finalLabel);
-            }
-            
-            // Ensure all arrays have the same length and final point exists
-            const arrayLength = principalOnlyData.length;
-            if (chartLabels.length !== arrayLength) {
-                // Arrays are out of sync - fix it
-                while (chartLabels.length < arrayLength) {
-                    chartLabels.push(finalLabel);
-                }
-                while (chartLabels.length > arrayLength) {
-                    chartLabels.pop();
-                }
-                // Ensure last label is correct
-                if (chartLabels.length > 0) {
-                    chartLabels[chartLabels.length - 1] = finalLabel;
-                }
-            } else if (chartLabels.length > 0) {
-                // Arrays are in sync - just ensure last label is correct
-                chartLabels[chartLabels.length - 1] = finalLabel;
-            }
-
-            // FINAL CHECK: Absolutely ensure the last label is correct before creating chart
-            if (chartLabels.length > 0) {
-                chartLabels[chartLabels.length - 1] = finalLabel;
-            } else {
-                // If somehow no labels exist, add the final label
-                chartLabels.push(finalLabel);
-            }
-            
-            // Ensure all data arrays have the same length as labels
-            const targetLength = chartLabels.length;
-            while (principalOnlyData.length < targetLength) {
-                principalOnlyData.push(principalOnlyAmount);
-            }
-            while (withContributionsData.length < targetLength) {
-                withContributionsData.push(finalAmount);
-            }
-            while (contributionsData.length < targetLength) {
-                contributionsData.push(totalContributionsMade);
-            }
-            while (interestGainData.length < targetLength) {
-                interestGainData.push(interestEarned);
-            }
-            while (totalAmountData.length < targetLength) {
-                totalAmountData.push(finalAmount);
-            }
-
-            // Update or create chart
-            const ctx = document.getElementById('growthChart').getContext('2d');
-            
-            if (chart) {
-                chart.destroy();
-            }
-
-            // Create principal-only data (constant value)
-            const principalData = contributionsData.map(() => principal);
-
-            // Prepare datasets with stacked areas
-            const datasets = [];
-
-            // Add Principal area (base, filled from bottom)
-            datasets.push({
-                label: 'Principal',
-                data: principalData,
-                borderColor: 'rgb(251, 146, 60)',
-                backgroundColor: 'rgba(251, 146, 60, 1.0)',
-                borderWidth: 0,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 0,
-                pointHoverRadius: 0,
-                pointHitRadius: 0, // Don't intercept mouse events
-                stack: 'stack1',
-                order: -3 // Negative order = drawn first (behind)
-            });
-
-            // Add Contributions area (stacked on principal)
-            datasets.push({
-                label: 'Contributions',
-                data: contributionsData,
-                borderColor: 'rgb(59, 130, 246)',
-                backgroundColor: 'rgba(59, 130, 246, 1.0)',
-                borderWidth: 0,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 0,
-                pointHoverRadius: 0,
-                pointHitRadius: 0, // Don't intercept mouse events
-                stack: 'stack1',
-                order: -2 // Negative order = drawn first (behind)
-            });
-
-            // Add Interest Gain area (stacked on principal + contributions)
-            datasets.push({
-                label: 'Interest Gain',
-                data: interestGainData,
-                borderColor: 'rgb(34, 197, 94)',
-                backgroundColor: 'rgba(34, 197, 94, 1.0)',
-                borderWidth: 0,
-                fill: true,
-                tension: 0.4,
-                pointRadius: 0,
-                pointHoverRadius: 0,
-                pointHitRadius: 0, // Don't intercept mouse events
-                stack: 'stack1',
-                order: -1 // Negative order = drawn first (behind)
-            });
-
-            // Add Total Amount line (will be redrawn on top by plugin)
-            datasets.push({
-                label: 'Total Amount',
-                data: totalAmountData,
-                borderColor: 'rgb(118, 75, 162)',
-                backgroundColor: 'rgba(118, 75, 162, 0)',
-                borderWidth: 3,
-                fill: false,
-                tension: 0.4,
-                pointRadius: 4,
-                pointHoverRadius: 6,
-                pointHitRadius: 30, // Very large hit radius to ensure interaction works
-                pointBackgroundColor: '#fff', // White inside
-                pointBorderColor: 'rgb(118, 75, 162)', // Purple border
-                pointBorderWidth: 2,
-                order: 100
-            });
-
-            // Plugin to disable interactions for area charts and prioritize Total Amount line
-            const areaChartInteractionPlugin = {
-                id: 'disableAreaInteractions',
-                beforeEvent: (chart, args) => {
-                    // Store original getElementsAtEventForMode
-                    if (!chart._originalGetElementsAtEventForMode) {
-                        chart._originalGetElementsAtEventForMode = chart.getElementsAtEventForMode.bind(chart);
-                        
-                        // Override to filter out area charts
-                        chart.getElementsAtEventForMode = function(event, mode, options, useFinalPosition) {
-                            const elements = this._originalGetElementsAtEventForMode(event, mode, options, useFinalPosition);
-                            const areaChartLabels = ['Principal', 'Contributions', 'Interest Gain'];
-                            
-                            // Filter out area chart elements, keep only Total Amount line
-                            return elements.filter(element => {
-                                const datasetLabel = this.data.datasets[element.datasetIndex]?.label;
-                                return !areaChartLabels.includes(datasetLabel);
-                            });
-                        };
-                    }
-                }
-            };
-
-            // Plugin to ensure Total Amount line renders on top
-            const totalAmountLinePlugin = {
-                id: 'totalAmountOnTop',
-                afterDatasetsDraw: (chart) => {
-                    const ctx = chart.ctx;
-                    const totalAmountIndex = chart.data.datasets.findIndex(d => d.label === 'Total Amount');
-                    if (totalAmountIndex === -1) return;
-                    
-                    const totalAmountDataset = chart.data.datasets[totalAmountIndex];
-                    const meta = chart.getDatasetMeta(totalAmountIndex);
-                    if (!meta || !meta.data || meta.data.length === 0) return;
-                    
-                    ctx.save();
-                    
-                    // Draw the line with proper styling
-                    ctx.strokeStyle = 'rgb(118, 75, 162)';
-                    ctx.lineWidth = 3;
-                    ctx.lineCap = 'round';
-                    ctx.lineJoin = 'round';
-                    ctx.beginPath();
-                    
-                    // Draw smooth curve
-                    const points = meta.data;
-                    if (points.length > 0) {
-                        ctx.moveTo(points[0].x, points[0].y);
-                        for (let i = 1; i < points.length; i++) {
-                            const point = points[i];
-                            const prevPoint = points[i - 1];
-                            const cpx = (prevPoint.x + point.x) / 2;
-                            const cpy = (prevPoint.y + point.y) / 2;
-                            ctx.quadraticCurveTo(prevPoint.x, prevPoint.y, cpx, cpy);
-                        }
-                        ctx.lineTo(points[points.length - 1].x, points[points.length - 1].y);
-                    }
-                    ctx.stroke();
-                    
-                    // Draw the points (white inside, purple border)
-                    points.forEach((point) => {
-                        ctx.beginPath();
-                        ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
-                        ctx.fillStyle = '#fff'; // White inside
-                        ctx.fill();
-                        ctx.strokeStyle = 'rgb(118, 75, 162)'; // Purple border
-                        ctx.lineWidth = 2;
-                        ctx.stroke();
-                    });
-                    
-                    ctx.restore();
-                },
-                afterDraw: (chart) => {
-                    // Draw hover highlight on top of everything
-                    const ctx = chart.ctx;
-                    const totalAmountIndex = chart.data.datasets.findIndex(d => d.label === 'Total Amount');
-                    if (totalAmountIndex === -1) return;
-                    
-                    const totalAmountDataset = chart.data.datasets[totalAmountIndex];
-                    const meta = chart.getDatasetMeta(totalAmountIndex);
-                    if (!meta || !meta.data) return;
-                    
-                    // Check if there's an active hover state
-                    if (chart.tooltip && chart.tooltip._active && chart.tooltip._active.length > 0) {
-                        const activeElement = chart.tooltip._active.find(el => el.datasetIndex === totalAmountIndex);
-                        if (activeElement && activeElement.element) {
-                            const point = activeElement.element;
-                            const hoverRadius = totalAmountDataset.pointHoverRadius || 6;
-                            
-                            ctx.save();
-                            
-                            // Draw hover highlight circle on top of everything
-                            ctx.beginPath();
-                            ctx.arc(point.x, point.y, hoverRadius, 0, Math.PI * 2);
-                            ctx.fillStyle = '#fff'; // White inside
-                            ctx.fill();
-                            ctx.strokeStyle = 'rgb(118, 75, 162)'; // Purple border
-                            ctx.lineWidth = 2;
-                            ctx.stroke();
-                            
-                            ctx.restore();
-                        }
-                    }
-                }
-            };
-
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: chartLabels,
-                    datasets: datasets
-                },
-                plugins: [areaChartInteractionPlugin, totalAmountLinePlugin],
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                font: {
-                                    size: window.innerWidth <= 480 ? 11 : 14,
-                                    weight: 'bold'
-                                },
-                                color: '#333',
-                                padding: window.innerWidth <= 480 ? 8 : 12,
-                                boxWidth: window.innerWidth <= 480 ? 12 : 15
-                            }
-                        },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            padding: window.innerWidth <= 480 ? 8 : 12,
-                            titleFont: {
-                                size: window.innerWidth <= 480 ? 12 : 14
-                            },
-                            bodyFont: {
-                                size: window.innerWidth <= 480 ? 11 : 13
-                            },
-                            position: function(context) {
-                                // Custom positioning to avoid covering the hover highlight
-                                const point = context[0];
-                                if (point && point.element) {
-                                    const x = point.element.x;
-                                    const y = point.element.y;
-                                    const pointRadius = point.element.options?.pointRadius || 4;
-                                    const pointHoverRadius = point.element.options?.pointHoverRadius || 6;
-                                    const maxRadius = Math.max(pointRadius, pointHoverRadius);
-                                    const tooltipWidth = context.chart.tooltip.width || 150;
-                                    const tooltipHeight = context.chart.tooltip.height || 50;
-                                    const chartArea = context.chart.chartArea;
-                                    
-                                    // Position tooltip to the right of the point with padding to avoid covering highlight
-                                    let tooltipX = x + maxRadius + 20;
-                                    let tooltipY = y;
-                                    
-                                    // If tooltip would go off the right edge, position to the left
-                                    if (tooltipX + tooltipWidth > chartArea.right) {
-                                        tooltipX = x - maxRadius - tooltipWidth - 20;
-                                    }
-                                    
-                                    // Center vertically on the point
-                                    tooltipY = y - tooltipHeight / 2;
-                                    
-                                    // Keep tooltip within chart bounds
-                                    if (tooltipY < chartArea.top) {
-                                        tooltipY = chartArea.top;
-                                    }
-                                    if (tooltipY + tooltipHeight > chartArea.bottom) {
-                                        tooltipY = chartArea.bottom - tooltipHeight;
-                                    }
-                                    
-                                    return {
-                                        x: tooltipX,
-                                        y: tooltipY
-                                    };
-                                }
-                                // Fallback to default positioning
-                                return 'nearest';
-                            },
-                            itemSort: function(a, b) {
-                                // Sort Total Amount to the top
-                                if (a.dataset.label === 'Total Amount') return -1;
-                                if (b.dataset.label === 'Total Amount') return 1;
-                                return 0;
-                            },
-                            callbacks: {
-                                label: function(context) {
-                                    return context.dataset.label + ': ' + formatCurrency(context.parsed.y);
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: {
-                                callback: function(value) {
-                                    return formatCurrency(value);
-                                },
-                                font: {
-                                    size: window.innerWidth <= 480 ? 10 : 12
-                                },
-                                maxTicksLimit: window.innerWidth <= 480 ? 5 : 8
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            }
-                        },
-                        x: {
-                            ticks: {
-                                font: {
-                                    size: window.innerWidth <= 480 ? 10 : 12
-                                },
-                                maxRotation: window.innerWidth <= 480 ? 60 : 45,
-                                minRotation: window.innerWidth <= 480 ? 60 : 45,
-                                maxTicksLimit: chartLabels.length // Show all labels, including the last one
-                            },
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: 'nearest',
-                        axis: 'x',
-                        intersect: false
-                    }
-                }
-            });
-        }
-
-            // Update rate label when compounding frequency changes
-            document.addEventListener('DOMContentLoaded', function() {
-                const frequencyInputs = document.querySelectorAll('input[name="frequency"]');
-                frequencyInputs.forEach(input => {
-                    input.addEventListener('change', function() {
-                        updateRateLabel();
-                        saveToCache();
-                        calculate();
-                    });
-                });
-        });
-
-        // Load from cache and calculate on page load
-        window.addEventListener('load', function() {
-            // Load cached values first
-            const loaded = loadFromCache();
-            updateRateLabel();
-            if (loaded) {
-                // If we loaded from cache, update the rate label again in case frequency changed
-                updateRateLabel();
-            }
-            calculate();
-        });
-
-        // Auto-calculate on input change and save to cache
-        document.addEventListener('DOMContentLoaded', function() {
-            const inputs = document.querySelectorAll('input[type="number"], input[type="radio"]');
-            inputs.forEach(input => {
-                if (input.name !== 'frequency') {
-                    input.addEventListener('input', function() {
-                        saveToCache();
-                        calculate();
-                    });
-                    input.addEventListener('change', function() {
-                        saveToCache();
-                        calculate();
-                    });
-                }
-            });
-            
-            // Handle months overflow - convert 12+ months to years
-            const timeMonthsInput = document.getElementById('timeMonths');
-            timeMonthsInput.addEventListener('change', function() {
-                let months = parseInt(this.value) || 0;
-                if (months >= 12) {
-                    const yearsToAdd = Math.floor(months / 12);
-                    const remainingMonths = months % 12;
-                    const yearsInput = document.getElementById('timeYears');
-                    const currentYears = parseInt(yearsInput.value) || 0;
-                    yearsInput.value = currentYears + yearsToAdd;
-                    this.value = remainingMonths;
-                    saveToCache();
-                    calculate();
-                }
-            });
-        });
-    </script>
 </body>
 </html>
